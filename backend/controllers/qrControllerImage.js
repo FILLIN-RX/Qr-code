@@ -8,17 +8,14 @@ const app = express();
 const upload = multer({ dest: "uploads/" });
 
 exports.generateQRImage = async (req, res) => {
-// Upload image + generate QR
-
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Aucune image envoyée" });
     }
 
-    // URL publique vers l'image (exemple si le serveur sert /uploads)
-    const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    console.log("Fichier reçu :", req.file);
 
-    // Génération du QR code contenant l'URL de l'image
+    const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
     const qrBuffer = await QRCode.toBuffer(imageUrl);
 
     res.setHeader("Content-Type", "image/png");
@@ -29,6 +26,7 @@ exports.generateQRImage = async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la génération du QR code" });
   }
 };
+
 
 // Servir le dossier uploads en public
 

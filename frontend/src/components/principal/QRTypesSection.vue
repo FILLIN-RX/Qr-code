@@ -1,8 +1,8 @@
 <template>
   <section class="py-16 px-4 bg-gray-50">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto" v-if="step === 1">
       <!-- Header -->
-      <div class="text-center mb-12">
+      <div class="text-center mb-12" >
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           1. Sélectionnez un type de code QR
         </h2>
@@ -16,7 +16,7 @@
         <div class="flex-1">
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div v-for="(type, index) in qrTypes" :key="index" 
-                 @click="selectQRType(type)"
+                 @click="selectQRType(type),goToStep2()"
                  :class="[
                    'relative bg-white rounded-lg border-2 p-4 cursor-pointer transition-all duration-200',
                    selectedType?.id === type.id 
@@ -174,12 +174,16 @@
         </div>
       </div>
     </div>
+     <div v-if="step === 2" class="max-w-lg mx-auto">
+      <QRCodeForm :selectedType="selectedType" @create-qr-code="$emit('create-qr-code', $event)" />
+     </div>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
+import QRCodeForm from '../QRCodeForm.vue'
+const step = ref(1)
 // Définir les émissions d'événements
 const emit = defineEmits(['qr-type-selected', 'create-qr-code'])
 
@@ -329,6 +333,9 @@ const selectQRType = (type) => {
 
 const proceedToCreation = () => {
   emit('create-qr-code', selectedType.value)
+}
+function goToStep2() {
+  if (selectedType.value) step.value = 2
 }
 </script>
 
