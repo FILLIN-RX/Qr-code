@@ -5,9 +5,9 @@
     <QRTypesSection />
     <CustomizationSection />
     <AdvancedFeaturesSection />
-    <UseCasesSection />
-    <QRGeneratorForm />
-    <FooterSection />
+   
+    
+    
   </div>
 </template>
 <script setup>
