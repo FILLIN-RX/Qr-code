@@ -147,19 +147,13 @@
                             >
                               <!-- Pattern QR code simulé -->
                               <div class="absolute inset-2 bg-white rounded-sm">
+                                 <template v-if="hoveredType?.preview">
+    <img :src="hoveredType.preview" class="object-contain w-full h-full" />
+  </template>
                                 <div
                                   class="grid grid-cols-8 gap-0.5 h-full w-full p-1"
                                 >
-                                  <div
-                                    v-for="i in 64"
-                                    :key="i"
-                                    :class="
-                                      Math.random() > 0.5
-                                        ? 'bg-black'
-                                        : 'bg-white'
-                                    "
-                                    class="aspect-square rounded-[1px]"
-                                  ></div>
+                                 
                                 </div>
                                 <!-- Logo au centre -->
                                 <div
@@ -312,6 +306,7 @@ const qrTypes = [
     title: "Site internet",
     description: "Renvoyez vers l'URL de n'importe quel site internet",
     popular: true,
+    preview: "https://example.com/preview-url"
   },
   {
     id: "pdf",
@@ -320,6 +315,7 @@ const qrTypes = [
     </svg>`,
     title: "PDF",
     description: "Partagez un PDF",
+
   },
   {
     id: "list",
@@ -361,6 +357,7 @@ const qrTypes = [
     </svg>`,
     title: "Images",
     description: "Partagez plusieurs images",
+    
   },
   {
     id: "facebook",
@@ -377,6 +374,7 @@ const qrTypes = [
     </svg>`,
     title: "Instagram",
     description: "Partagez votre Instagram",
+    preview: '/home/fillin/Qr-code/frontend/src/assets/instagram.jpeg'
   },
   {
     id: "social",
