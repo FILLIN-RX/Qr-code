@@ -1,8 +1,8 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-
-
+const {generateQRFromAudio} = require("../controllers/audio");
+const {generateQRFromVideo} = require("../controllers/video")
 const {
   generateQRFromText,
   generateQRFromUrl,
@@ -15,10 +15,12 @@ const upload = multer({ dest: path.join(__dirname, "../uploads") });
 
 // Image
 
+// video 
+router.post("/generateFromVideo", upload.single("video"), generateQRFromVideo);
 
-// PDF
+// Audio
 
-
+router.post("/generateFromAudio", upload.single("audio"), generateQRFromAudio);
 // Texte
 router.post("/generateFromText", generateQRFromText);
 
